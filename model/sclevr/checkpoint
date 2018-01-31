@@ -1,0 +1,2 @@
+model_checkpoint_path: "sclevr_rn.ckpt"
+all_model_checkpoint_paths: "sclevr_rn.ckpt"
