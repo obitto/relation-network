@@ -23,13 +23,13 @@ with the coordinate, then every two of object and question embedding would be co
 g_theta which is a four layer MLP, element-wise sum over all the output and then feed into f_theta to get the final output. The formula can be written as:
 
 <p align="center">
-    <img src="figure/rn_eq.png" height="72"/>,
+    <img src="figures/rn_eq.png" height="72"/>,
 </p>
 
 And the whole architecture:
 
 <p align="center">
-    <img src="figure/RN.png" height="350"/>
+    <img src="figures/RN.png" height="350"/>
 </p>
 
 ## Result for Clevr
