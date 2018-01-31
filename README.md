@@ -29,7 +29,7 @@ g_theta which is a four layer MLP, element-wise sum over all the output and then
 And the whole architecture:
 
 <p align="center">
-    <img src="figures/RN.png" height="350"/>
+    <img src="figures/module.png" height="350"/>
 </p>
 
 ## Result for Clevr
