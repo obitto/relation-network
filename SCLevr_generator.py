@@ -16,53 +16,6 @@ COLOR = [
 	(0, 150, 150), #cyan
 ]
 
-def color2str(code):
-	return {
-		0: 'blue',
-		1: 'green',
-		2: 'red',
-		3: 'yellow',
-		4: 'magenta',
-		5: 'cyan',
-	}[code]
-
-
-def question2str(qv):
-
-	def q_type(q):
-		return {
-			0: 'the shape of the nearest object?',
-			1: 'the shape of the farthest object?',
-			2: 'How many objects have the same shape',
-			3: 'is it a circle or a rectangle?',
-			4: 'is it closer to the top of the image?',
-			5: 'is it on the right of the image?'
-		}[q]
-	color = np.argmax(qv[:6])
-	q_num = np.argmax(qv[8:]) + int(qv[7] * 3)
-	return '[Query object color: {}] [Query: {}]'.format(color2str(color),
-															q_type(q_num))
-															
-def answer2str(av, prefix=None):
-
-	def a_type(a):
-		return {
-			0: 'yes',
-			1: 'no',
-			2: 'square',
-			3: 'circle',
-			4: 1,
-			5: 2,
-			6: 3,
-			7: 4,
-			8: 5,
-			9: 6,
-		}[np.argmax(a)]
-	if not prefix:
-		return '[Answer: {}]'.format(a_type(av))
-	else:
-		return '[{} Answer: {}]'.format(prefix, a_type(av))
-		
 class SClevr_generator(object):
 	
 	def __init__(self, config):
@@ -101,7 +54,7 @@ class SClevr_generator(object):
 			'image':	img_set,
 			'qa':	qa_set
 		}
-		with open(self.path, 'w') as f:
+		with open(self.path, "w") as f:
 			json.dump(dataset, f)
 	
 	  
@@ -228,17 +181,23 @@ class SClevr_generator(object):
 			answers.append(answer)
 		return answers
 		
-	
 def main():
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--path', type=str, default='train')
-	parser.add_argument('--dataset_size', type=int, default=9800)
+	parser.add_argument('--dataset_size', type=int, default=10000)
 	parser.add_argument('--image_size', type=int, default=80)
 	parser.add_argument('--num_obj', type=int, default=6)
+	parser.add_argument('--split_rate', type=float, default=2e-2)
 	config = parser.parse_args()
 	
-	gen = SClevr_generator(config)
-	gen.generate_dataset()
+	config.path = 'train'
+	size = config.dataset_size
+	config.dataset_size = int(size * (1 - config.split_rate))
+	gen_train = SClevr_generator(config)
+	gen_train.generate_dataset()
+	config.path = 'val'
+	config.dataset_size = int(size * config.split_rate)
+	gen_val = SClevr_generator(config)
+	gen_val.generate_dataset()
 	
 	
 	
