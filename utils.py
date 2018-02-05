@@ -33,7 +33,7 @@ def tag_obj(o, i, d):
 	tag the object with normalized coordinate
 	"""
 	coor = tf.tile(tf.expand_dims(
-			[float(int(i / d)) / d, (i % d) / d], axis=0), [o.get_shape().as_list()[0], 1])
+			[float(int(i / d)) / d * 2 - 1, (i % d) / d * 2 - 1], axis=0), [o.get_shape().as_list()[0], 1])
 	o = tf.concat([o, tf.to_float(coor)], axis=1)
 	return o
         

@@ -100,19 +100,19 @@ The test is conducted on image with 6 shape, training set has 9800 scenes and te
 
 | | RN model |
 | --- | --- |
-| Non-relational question | **97.85%** |
-| Relational question | **76.6%** |
-| Overall | **87.225%** |
+| Non-relational question | **98.2%** |
+| Relational question | **80.0%** |
+| Overall | **89.05%** |
 
 
 | Acc for each type of question| RN model |
 | --- | --- |
-| the shape of the farthest object? | **75.78%** |
-| The shape of the nearest object? | **71.10%** |
-| How many objects have the same shape(include itself)? | **83.20%** |
-| Is it a circle or a square? | **98.10%** |
-| Is it closer to the top of the image? | **97.03%** |
-| Is it on the right of the image? | **98.42%** |
+| the shape of the farthest object? | **75.15%** |
+| The shape of the nearest object? | **79.34%** |
+| How many objects have the same shape(include itself)? | **85.15%** |
+| Is it a circle or a square? | **97.78%** |
+| Is it closer to the top of the image? | **98.22%** |
+| Is it on the right of the image? | **98.56%** |
 
 We can see this module has some problem with distance related question. This could because the model in this paper has 
 much more filter in the convolution layer(where I have 24 in each layer) and much more MLP unit in f_theta. But still, it's an huge

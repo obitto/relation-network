@@ -160,14 +160,16 @@ class RN(object):
 		
 	def f_theta(self, relation, scope = 'f_phi'):
 		"""
-		final MLP block to generate logits.
+		final MLP block to predict the answers.
 		"""
 		with tf.variable_scope(scope) as scope:
 			fc_1 = fc(relation, 256, name='fc_1')
 			fc_2 = fc(fc_1, 256, name='fc_2')
-			fc_2 = slim.dropout(fc_2, keep_prob=0.5, is_training=self.is_train, scope='fc_3/')
-			fc_3 = fc(fc_2,self.config.answer_dim, activation_fn=None, name='fc_3')
-			return fc_3
+			fc_3 = fc(fc_2, 256, name='fc_3')
+			fc_4 = fc(fc_3, 256, name='fc_4')
+			fc_4 = slim.dropout(fc_4, keep_prob=0.5, is_training=self.is_train, scope='fc_4/')
+			fc_5 = fc(fc_4, self.config.answer_dim, activation_fn = None,name='logits')
+			return fc_5
 		
 	def build_loss(self):
 		"""
